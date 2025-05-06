@@ -1,0 +1,14 @@
+<!-- add_item.html -->
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+<h2>Add New Item to {{ shop.shop_name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add Item</button>
+</form>
+
+<a href="{% url 'shopkeep' shop.id %}" class="btn btn-secondary">Cancel</a>
+{% endblock %}

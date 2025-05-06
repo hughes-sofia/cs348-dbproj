@@ -1,0 +1,57 @@
+{% extends 'mainapp/base.html' %}
+
+{% block title %}{{ shop.shop_name }} - Shop Manager{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ shop.shop_name }} - Shop Manager</h1>
+    <p>{{ shop.shop_description }}</p>
+
+  
+    <div class="row">
+        <!-- Shopkeepers List -->
+        <div class="col-md-4">
+            <h2>Shopkeepers</h2>
+            <ul>
+                {% for manager in shopkeepers %}
+                    <li>{{ manager.seller.first_name }} {{ manager.seller.last_name }} ({{ manager.seller.email }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <a href="{% url 'customer_shop_view' shop.id %}" class="btn btn-outline-primary mt-3">View as Customer</a>
+        <a href="{% url 'shopkeep_report' shop.id %}" class="btn btn-outline-secondary mt-3">View Sales Report</a>
+    
+    
+        <!-- Inventory List -->
+        <div class="col-md-8">
+            <h2>Inventory</h2>
+            <a href="{% url 'add_item' shop.id %}" class="btn btn-success mb-3">Add New Item</a> 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inventory in inventory_items %}
+                    <tr>
+                        <td>{{ inventory.item.name }}</td>
+                        <td>{{ inventory.item.description }}</td>
+                        <td>${{ inventory.item.price }}</td>
+                        <td>{{ inventory.item.quantity }}</td>
+                        <td>
+                            <a href="{% url 'edit_item' inventory.item.id %}" class="btn btn-warning">Edit</a>
+                            <a href="{% url 'delete_item' inventory.item.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

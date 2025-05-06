@@ -1,0 +1,42 @@
+{% extends 'mainapp/base.html' %}
+
+{% block title %}{{ item.name }} Details{% endblock %}
+
+{% block content %}
+<h2>{{ item.name }}</h2>
+<p><strong>Description:</strong> {{ item.description }}</p>
+<p><strong>Price:</strong> ${{ item.price }}</p>
+
+<a href="{% url 'shopkeep_report' shop_id %}" class="btn btn-secondary">Back to Sales Report</a>
+<a href="{% url 'shopkeep' shop_id %}" class="btn btn-secondary">Back to Shop</a>
+
+<hr>
+<h4>Sales Info</h4>
+<p><strong>Orders placed:</strong> {{ sales_data.total_orders|default:0 }}</p>
+<p><strong>Total quantity sold:</strong> {{ sales_data.times_bought|default:0 }}</p>
+<p><strong>Total earned:</strong> ${{ sales_data.total_revenue|default:0.00 }}</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity Bought</th>
+            <th>Total</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.item.name }}</a></td>
+            <td>{{ order.quantity }}</td>
+            <td>${{ order.total_price }}</td>
+            <td>{{ order.order_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "mainapp/base.html" %}
+
+{% block title %}{{ shop.name }} - Report{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Sales Report for {{ shop.shop_name }}</h1>
+
+    <div class="mb-4">
+        <p><strong>Date:</strong> {{ today }}</p>
+        <p><strong>Today's Revenue:</strong> ${{ today_revenue }}</p>
+        <p><strong>Total Revenue:</strong> ${{ total_revenue }}</p>
+    </div>
+
+    <h3 class="mt-5">Top Selling Items</h3>
+    {% if top_items %}
+    <div class="d-flex justify-content-end mb-3">
+        <a href="?sort=desc" class="btn btn-outline-primary me-2">Highest profit to lowest</a>
+        <a href="?sort=asc" class="btn btn-outline-secondary">Lowest to highest</a>
+    </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Total Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in top_items %}
+                <tr>
+                    <td><a href="{% url 'item_detail' shop.id item.item__id %}">{{ item.item__name }}</a></td>
+                    <td>${{ item.total_earned }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No sales data available yet.</p>
+    {% endif %}
+    <a href="{% url 'shopkeep' shop.id %}" class="btn btn-outline-secondary mt-3">Return To Shop</a>
+
+</div>
+{% endblock %}

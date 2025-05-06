@@ -1,0 +1,43 @@
+<!-- templates/mainapp/insufficient_stock.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Out of Stock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf2f2;
+            color: #333;
+            padding: 50px;
+            text-align: center;
+        }
+        .message-box {
+            background-color: #ffe5e5;
+            border: 1px solid #ffb3b3;
+            display: inline-block;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <h1>Sorry!</h1>
+        <p>There isn't enough stock available to fulfill your purchase.</p>
+        <a href="{% url 'customer_shop_view' shop_id %}">Go back to shop</a>
+    </div>
+</body>
+</html>

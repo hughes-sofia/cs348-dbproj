@@ -1,0 +1,6 @@
+<form method="POST">
+    {% csrf_token %}
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" id="quantity" min="1" value="1" required>
+    <button type="submit">Buy Now</button>
+</form>

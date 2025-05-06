@@ -1,0 +1,33 @@
+{% extends 'mainapp/base.html' %}
+
+{% block title %}{{ shop.shop_name }} - Shop{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to {{ shop.shop_name }}</h1>
+    <p>{{ shop.shop_description }}</p>
+
+    <h2>Available Items</h2>
+    <div class="row">
+        {% for inv in inventory_items %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ inv.item.name }}</h5>
+                    <p class="card-text">{{ inv.item.description }}</p>
+                    <p class="card-text">Price: ${{ inv.item.price }}</p>
+                    <p class="card-text">Available: {{ inv.item.quantity }}</p>
+                    <form method="post" action="{% url 'purchase_item' shop.id inv.item.id %}">
+                        {% csrf_token %}
+                        <div class="mb-2">
+                            <input type="number" name="quantity" min="1" max="{{ inv.quantity }}" value="1" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

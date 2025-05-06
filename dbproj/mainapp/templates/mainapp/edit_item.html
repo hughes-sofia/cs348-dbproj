@@ -1,0 +1,12 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+<h2>Edit Item: {{ item.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="{% url 'shopkeep' item.inventory_set.first.shop.id %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
